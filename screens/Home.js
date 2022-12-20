@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import {
   StyleSheet,
   View,
-  TextInput,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
@@ -13,16 +12,6 @@ import {
 } from "react-native";
 
 export default function Home({ navigation }) {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-
-  const nameHandler = (text) => setName(text);
-  const passwordHandler = (text) => setPassword(text);
-
-  const onLogin = () => {
-    Alert.alert("Credentials", `${name} + ${password}`);
-  };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -30,33 +19,26 @@ export default function Home({ navigation }) {
           source={require("../assets/images/stars-on-night-2.jpg")}
           style={styles.image}
         >
-          <Button
-            style={styles.button}
-            title="Go to Registration"
-            onPress={() => navigation.navigate("Registration")}
-          />
-          <Button
-            style={styles.button}
-            title="Go to Login"
-            onPress={() => navigation.navigate("Login")}
-          />
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
-            <TextInput
-              value={name}
-              onChangeText={nameHandler}
-              placeholder="Username"
-              style={styles.input}
-            />
-            <TextInput
-              value={password}
-              onChangeText={passwordHandler}
-              placeholder="Password"
-              secureTextEntry={true}
-              style={styles.input}
-            />
-            <Button title={"Login"} style={styles.input} onPress={onLogin} />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.buttonRegistration}
+            >
+              <Button
+                style={styles.buttonRegistration}
+                title="Go to Registration"
+                onPress={() => navigation.navigate("Registration")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.8} style={styles.buttonLogin}>
+              <Button
+                style={styles.buttonLogin}
+                title="Go to Login"
+                onPress={() => navigation.navigate("Login")}
+              />
+            </TouchableOpacity>
           </KeyboardAvoidingView>
         </ImageBackground>
       </View>
@@ -83,7 +65,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
+  buttonLogin: {
     width: 200,
+    height: 200,
+  },
+  buttonRegistration: {
+    width: 200,
+    height: 200,
+    marginBottom: 10,
   },
 });
