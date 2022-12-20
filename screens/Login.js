@@ -18,7 +18,7 @@ const initialState = {
   password: "",
 };
 
-const Registration = ({ navigation }) => {
+const Login = ({ navigation }) => {
   const [state, setState] = useState(initialState);
 
   const [isFocusedName, setIsFocusedName] = useState(false);
@@ -209,4 +209,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Registration;
+export default Login;
