@@ -18,7 +18,7 @@ const initialState = {
   password: "",
 };
 
-const Login = ({ navigation }) => {
+const Registration = ({ navigation }) => {
   const [state, setState] = useState(initialState);
 
   const [isFocusedName, setIsFocusedName] = useState(false);
@@ -35,17 +35,16 @@ const Login = ({ navigation }) => {
     Keyboard.dismiss();
   };
 
-  // const keyboardHide = () => {
-  //   alert("keyboardHide")
-  //   setIsFocusedName(false);
-  //   setIsFocusedMail(false);
-  //   setIsFocusedPassword(false);
-  //   setIsShowKeyboard(false);
-  //   Keyboard.dismiss();
-  // };
+  const keyboardHideWithoutFeedback = () => {
+    setIsShowKeyboard(false);
+    setIsFocusedName(false);
+    setIsFocusedMail(false);
+    setIsFocusedPassword(false);
+    Keyboard.dismiss();
+  };
   return (
     <ImageBackground
-      source={require("../assets/images/Photo_BG.png")}
+      source={require("../assets/images/stars-on-night-2.jpg")}
       style={styles.image}
     >
       <KeyboardAvoidingView
@@ -60,9 +59,9 @@ const Login = ({ navigation }) => {
               display: isShowKeyboard ? "none" : "flex",
             }}
           ></ImageBackground>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback onPress={keyboardHideWithoutFeedback}>
             <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
-              <Text style={styles.formTitle}>Авторизація</Text>
+              <Text style={styles.formTitle}>Login</Text>
 
               <TextInput
                 style={{
@@ -104,14 +103,14 @@ const Login = ({ navigation }) => {
                     setState((prevState) => ({ ...prevState, password: value }))
                   }
                 />
-                <Text style={styles.passwordShow}>Показать</Text>
+                <Text style={styles.passwordShow}>ShowPassword</Text>
               </View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnSubmit}
                 onPress={keyboardHideAndSubmit}
               >
-                <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
+                <Text style={styles.btnSubmitTitle}>Register</Text>
               </TouchableOpacity>
               <Button
                 style={styles.button}
@@ -206,9 +205,8 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   button: {
-    marginTop: 10,
     width: 200,
   },
 });
 
-export default Login;
+export default Registration;
