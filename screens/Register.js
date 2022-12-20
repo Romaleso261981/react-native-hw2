@@ -9,6 +9,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Keyboard,
+  Button,
   TouchableWithoutFeedback,
 } from "react-native";
 
@@ -51,12 +52,14 @@ const Registration = ({ navigation }) => {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
         <View style={styles.container}>
-          <View
+          <ImageBackground
+            source={require("../assets/images/bgava.jpg")}
             style={{
               ...styles.avatar,
-              top: isShowKeyboard ? 0 : 200,
+              top: isShowKeyboard ? 0 : 160,
+              display: isShowKeyboard ? "none" : "flex",
             }}
-          ></View>
+          ></ImageBackground>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
               <Text style={styles.formTitle}>Регистрация</Text>
@@ -128,11 +131,11 @@ const Registration = ({ navigation }) => {
               >
                 <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              <Button
+                style={styles.button}
+                title="Go to Home"
                 onPress={() => navigation.navigate("Home")}
-                activeOpacity={0.8}
-                style={styles.goToHome}
-              ></TouchableOpacity>
+              />
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -149,21 +152,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#ecf0f1",
   },
   form: {
-    position: "absolute",
+    position: "relative",
     width: 385,
     height: 549,
     backgroundColor: "#ecf0f1",
   },
   avatar: {
-    zIndex: 2,
-    margin: "auto",
     position: "absolute",
-    left: 130,
-    width: 120,
+    zIndex: 2,
+    left: 120,
+    width: 140,
     height: 120,
-    borderRadius: 16,
+    borderRadius: 25,
     backgroundColor: "#F6F6F6",
   },
+
   formTitle: {
     marginTop: 75,
     color: "#212121",
@@ -220,7 +223,9 @@ const styles = StyleSheet.create({
   wrapPassword: {
     position: "relative",
   },
-  inputName: {},
+  button: {
+    width: 200,
+  },
 });
 
 export default Registration;
