@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 
 const initialState = {
@@ -22,13 +23,20 @@ const Registration = ({ navigation }) => {
   const [isFocusedName, setIsFocusedName] = useState(false);
   const [isFocusedMail, setIsFocusedMail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-  const [isShowKeybord, setIsShowKeybord] = useState(false);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
-  const keboardHideAndSubmit = () => {
+  const keyboardHideAndSubmit = () => {
     alert(state.password, state.name);
-    setIsShowKeybord(false);
+    setIsShowKeyboard(false);
   };
 
+  const keyboardHide = () => {
+    setIsFocusedName(false);
+    setIsFocusedMail(false);
+    setIsFocusedPassword(false);
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
   return (
     <ImageBackground
       source={require("../assets/images/Photo_BG.png")}
@@ -41,10 +49,10 @@ const Registration = ({ navigation }) => {
           <View
             style={{
               ...styles.avatar,
-              top: isShowKeybord ? 50 : 200,
+              top: isShowKeyboard ? 0 : 200,
             }}
           ></View>
-          <View style={{ ...styles.form, top: isShowKeybord ? 0 : 263 }}>
+          <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
             <Text style={styles.formTitle}>Регистрация</Text>
             <TextInput
               style={{
@@ -58,9 +66,9 @@ const Registration = ({ navigation }) => {
               value={state.name}
               onFocus={() => {
                 setIsFocusedName(true);
-                setIsShowKeybord(true);
+                setIsShowKeyboard(true);
               }}
-              onBlur={() => setIsFocusedName(false)}
+              onBlur={() => keyboardHide()}
               onChangeText={(value) =>
                 setState((prevState) => ({ ...prevState, name: value }))
               }
@@ -76,9 +84,9 @@ const Registration = ({ navigation }) => {
               placeholderTextColor="black"
               onFocus={() => {
                 setIsFocusedMail(true);
-                setIsShowKeybord(true);
+                setIsShowKeyboard(true);
               }}
-              onBlur={() => setIsFocusedMail(false)}
+              onBlur={() => keyboardHide()}
               value={state.email}
               onChangeText={(value) =>
                 setState((prevState) => ({ ...prevState, email: value }))
@@ -98,9 +106,9 @@ const Registration = ({ navigation }) => {
                 value={state.password}
                 onFocus={() => {
                   setIsFocusedPassword(true);
-                  setIsShowKeybord(true);
+                  setIsShowKeyboard(true);
                 }}
-                onBlur={() => setIsFocusedPassword(false)}
+                onBlur={() => keyboardHide()}
                 onChangeText={(value) =>
                   setState((prevState) => ({ ...prevState, password: value }))
                 }
@@ -110,7 +118,7 @@ const Registration = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.btnSubmit}
-              onPress={keboardHideAndSubmit}
+              onPress={keyboardHideAndSubmit}
             >
               <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
             </TouchableOpacity>
