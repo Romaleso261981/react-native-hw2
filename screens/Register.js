@@ -10,6 +10,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 const initialState = {
@@ -28,15 +29,20 @@ const Registration = ({ navigation }) => {
   const keyboardHideAndSubmit = () => {
     alert(state.password, state.name);
     setIsShowKeyboard(false);
-  };
-
-  const keyboardHide = () => {
     setIsFocusedName(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
-    setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
+
+  // const keyboardHide = () => {
+  //   alert("keyboardHide")
+  //   setIsFocusedName(false);
+  //   setIsFocusedMail(false);
+  //   setIsFocusedPassword(false);
+  //   setIsShowKeyboard(false);
+  //   Keyboard.dismiss();
+  // };
   return (
     <ImageBackground
       source={require("../assets/images/Photo_BG.png")}
@@ -52,82 +58,84 @@ const Registration = ({ navigation }) => {
               top: isShowKeyboard ? 0 : 200,
             }}
           ></View>
-          <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
-            <Text style={styles.formTitle}>Регистрация</Text>
-            <TextInput
-              style={{
-                ...styles.input,
-                backgroundColor: isFocusedName ? "#FFFFFF" : "#F6F6F6",
-                color: isFocusedName ? "#212121" : "#BDBDBD",
-                borderColor: isFocusedName ? "red" : "green",
-              }}
-              placeholder="name"
-              placeholderTextColor="black"
-              value={state.name}
-              onFocus={() => {
-                setIsFocusedName(true);
-                setIsShowKeyboard(true);
-              }}
-              onBlur={() => keyboardHide()}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, name: value }))
-              }
-            />
-            <TextInput
-              style={{
-                ...styles.input,
-                backgroundColor: isFocusedMail ? "#FFFFFF" : "#F6F6F6",
-                color: isFocusedMail ? "#212121" : "#BDBDBD",
-                borderColor: isFocusedMail ? "red" : "green",
-              }}
-              placeholder="email"
-              placeholderTextColor="black"
-              onFocus={() => {
-                setIsFocusedMail(true);
-                setIsShowKeyboard(true);
-              }}
-              onBlur={() => keyboardHide()}
-              value={state.email}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, email: value }))
-              }
-            />
-            <View style={styles.wrapPassword}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
+              <Text style={styles.formTitle}>Регистрация</Text>
               <TextInput
                 style={{
                   ...styles.input,
-                  backgroundColor: isFocusedPassword ? "#FFFFFF" : "#F6F6F6",
-                  color: isFocusedPassword ? "#212121" : "#BDBDBD",
-                  borderColor: isFocusedPassword ? "red" : "green",
+                  backgroundColor: isFocusedName ? "#FFFFFF" : "#F6F6F6",
+                  color: isFocusedName ? "#212121" : "#BDBDBD",
+                  borderColor: isFocusedName ? "red" : "green",
                 }}
-                placeholder="password"
+                placeholder="name"
                 placeholderTextColor="black"
-                secureTextEntry={true}
-                value={state.password}
+                value={state.name}
                 onFocus={() => {
-                  setIsFocusedPassword(true);
+                  setIsFocusedName(true);
                   setIsShowKeyboard(true);
                 }}
-                onBlur={() => keyboardHide()}
+                // onBlur={() => keyboardHide()}
                 onChangeText={(value) =>
-                  setState((prevState) => ({ ...prevState, password: value }))
+                  setState((prevState) => ({ ...prevState, name: value }))
                 }
               />
-              <Text style={styles.passwordShow}>Показать</Text>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  backgroundColor: isFocusedMail ? "#FFFFFF" : "#F6F6F6",
+                  color: isFocusedMail ? "#212121" : "#BDBDBD",
+                  borderColor: isFocusedMail ? "red" : "green",
+                }}
+                placeholder="email"
+                placeholderTextColor="black"
+                onFocus={() => {
+                  setIsFocusedMail(true);
+                  setIsShowKeyboard(true);
+                }}
+                // onBlur={() => keyboardHide()}
+                value={state.email}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
+              />
+              <View style={styles.wrapPassword}>
+                <TextInput
+                  style={{
+                    ...styles.input,
+                    backgroundColor: isFocusedPassword ? "#FFFFFF" : "#F6F6F6",
+                    color: isFocusedPassword ? "#212121" : "#BDBDBD",
+                    borderColor: isFocusedPassword ? "red" : "green",
+                  }}
+                  placeholder="password"
+                  placeholderTextColor="black"
+                  secureTextEntry={true}
+                  value={state.password}
+                  onFocus={() => {
+                    setIsFocusedPassword(true);
+                    setIsShowKeyboard(true);
+                  }}
+                  // onBlur={() => keyboardHide()}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, password: value }))
+                  }
+                />
+                <Text style={styles.passwordShow}>Показать</Text>
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btnSubmit}
+                onPress={keyboardHideAndSubmit}
+              >
+                <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Home")}
+                activeOpacity={0.8}
+                style={styles.goToHome}
+              ></TouchableOpacity>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.btnSubmit}
-              onPress={keyboardHideAndSubmit}
-            >
-              <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Home")}
-              activeOpacity={0.8}
-              style={styles.goToHome}
-            ></TouchableOpacity>
-          </View>
+          </TouchableWithoutFeedback>
         </View>
       </KeyboardAvoidingView>
     </ImageBackground>
