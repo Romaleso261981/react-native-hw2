@@ -35,14 +35,13 @@ const Registration = ({ navigation }) => {
     Keyboard.dismiss();
   };
 
-  // const keyboardHide = () => {
-  //   alert("keyboardHide")
-  //   setIsFocusedName(false);
-  //   setIsFocusedMail(false);
-  //   setIsFocusedPassword(false);
-  //   setIsShowKeyboard(false);
-  //   Keyboard.dismiss();
-  // };
+  const keyboardHideWithoutFeedback = () => {
+    setIsShowKeyboard(false);
+    setIsFocusedName(false);
+    setIsFocusedMail(false);
+    setIsFocusedPassword(false);
+    Keyboard.dismiss();
+  };
   return (
     <ImageBackground
       source={require("../assets/images/Photo_BG.png")}
@@ -60,7 +59,7 @@ const Registration = ({ navigation }) => {
               display: isShowKeyboard ? "none" : "flex",
             }}
           ></ImageBackground>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback onPress={keyboardHideWithoutFeedback}>
             <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
               <Text style={styles.formTitle}>Регистрация</Text>
               <TextInput
