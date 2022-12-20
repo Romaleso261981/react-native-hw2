@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const keyboardHideAndSubmit = () => {
-    alert(state.password, state.name);
+    console.log(`managed to get the data ${state.email}`);
     setIsShowKeyboard(false);
     setIsFocusedName(false);
     setIsFocusedMail(false);

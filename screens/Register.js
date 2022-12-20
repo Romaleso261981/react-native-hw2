@@ -14,6 +14,7 @@ import {
 } from "react-native";
 
 const initialState = {
+  name: "",
   email: "",
   password: "",
 };
