@@ -14,15 +14,13 @@ import {
 } from "react-native";
 
 const initialState = {
-  name: "",
   email: "",
   password: "",
 };
 
-const Registration = ({ navigation }) => {
+const Login = ({ navigation }) => {
   const [state, setState] = useState(initialState);
 
-  const [isFocusedName, setIsFocusedName] = useState(false);
   const [isFocusedMail, setIsFocusedMail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -45,7 +43,7 @@ const Registration = ({ navigation }) => {
   };
   return (
     <ImageBackground
-      source={require("../assets/images/Photo_BG.png")}
+      source={require("../../assets/images/stars-on-night-2.jpg")}
       style={styles.image}
     >
       <KeyboardAvoidingView
@@ -53,7 +51,7 @@ const Registration = ({ navigation }) => {
       >
         <View style={styles.container}>
           <ImageBackground
-            source={require("../assets/images/bgava.jpg")}
+            source={require("../../assets/images/bgava.jpg")}
             style={{
               ...styles.avatar,
               top: isShowKeyboard ? 0 : 160,
@@ -62,26 +60,8 @@ const Registration = ({ navigation }) => {
           ></ImageBackground>
           <TouchableWithoutFeedback onPress={keyboardHideWithoutFeedback}>
             <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
-              <Text style={styles.formTitle}>Регистрация</Text>
-              <TextInput
-                style={{
-                  ...styles.input,
-                  backgroundColor: isFocusedName ? "#FFFFFF" : "#F6F6F6",
-                  color: isFocusedName ? "#212121" : "#BDBDBD",
-                  borderColor: isFocusedName ? "red" : "green",
-                }}
-                placeholder="name"
-                placeholderTextColor="black"
-                value={state.name}
-                onFocus={() => {
-                  setIsFocusedName(true);
-                  setIsShowKeyboard(true);
-                }}
-                // onBlur={() => keyboardHide()}
-                onChangeText={(value) =>
-                  setState((prevState) => ({ ...prevState, name: value }))
-                }
-              />
+              <Text style={styles.formTitle}>Login</Text>
+
               <TextInput
                 style={{
                   ...styles.input,
@@ -122,14 +102,14 @@ const Registration = ({ navigation }) => {
                     setState((prevState) => ({ ...prevState, password: value }))
                   }
                 />
-                <Text style={styles.passwordShow}>Показать</Text>
+                <Text style={styles.passwordShow}>ShowPassword</Text>
               </View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnSubmit}
                 onPress={keyboardHideAndSubmit}
               >
-                <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
+                <Text style={styles.btnSubmitTitle}>Register</Text>
               </TouchableOpacity>
               <Button
                 style={styles.button}
@@ -228,4 +208,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Registration;
+export default Login;

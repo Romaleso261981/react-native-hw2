@@ -14,11 +14,12 @@ import {
 } from "react-native";
 
 const initialState = {
+  name: "",
   email: "",
   password: "",
 };
 
-const Login = ({ navigation }) => {
+const Registration = ({ navigation }) => {
   const [state, setState] = useState(initialState);
 
   const [isFocusedName, setIsFocusedName] = useState(false);
@@ -44,7 +45,7 @@ const Login = ({ navigation }) => {
   };
   return (
     <ImageBackground
-      source={require("../assets/images/stars-on-night-2.jpg")}
+      source={require("../../assets/images/Photo_BG.png")}
       style={styles.image}
     >
       <KeyboardAvoidingView
@@ -52,7 +53,7 @@ const Login = ({ navigation }) => {
       >
         <View style={styles.container}>
           <ImageBackground
-            source={require("../assets/images/bgava.jpg")}
+            source={require("../../assets/images/bgava.jpg")}
             style={{
               ...styles.avatar,
               top: isShowKeyboard ? 0 : 160,
@@ -61,8 +62,26 @@ const Login = ({ navigation }) => {
           ></ImageBackground>
           <TouchableWithoutFeedback onPress={keyboardHideWithoutFeedback}>
             <View style={{ ...styles.form, top: isShowKeyboard ? 0 : 263 }}>
-              <Text style={styles.formTitle}>Login</Text>
-
+              <Text style={styles.formTitle}>Регистрация</Text>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  backgroundColor: isFocusedName ? "#FFFFFF" : "#F6F6F6",
+                  color: isFocusedName ? "#212121" : "#BDBDBD",
+                  borderColor: isFocusedName ? "red" : "green",
+                }}
+                placeholder="name"
+                placeholderTextColor="black"
+                value={state.name}
+                onFocus={() => {
+                  setIsFocusedName(true);
+                  setIsShowKeyboard(true);
+                }}
+                // onBlur={() => keyboardHide()}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, name: value }))
+                }
+              />
               <TextInput
                 style={{
                   ...styles.input,
@@ -103,14 +122,14 @@ const Login = ({ navigation }) => {
                     setState((prevState) => ({ ...prevState, password: value }))
                   }
                 />
-                <Text style={styles.passwordShow}>ShowPassword</Text>
+                <Text style={styles.passwordShow}>Показать</Text>
               </View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnSubmit}
                 onPress={keyboardHideAndSubmit}
               >
-                <Text style={styles.btnSubmitTitle}>Register</Text>
+                <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
               </TouchableOpacity>
               <Button
                 style={styles.button}
@@ -209,4 +228,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Registration;
