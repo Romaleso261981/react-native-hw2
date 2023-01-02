@@ -7,19 +7,19 @@ const CreatePostsScreen = () => {
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require("../../assets/imegs/contentblock.png")}
+        source={require("../assets/images/contentblock.png")}
       />
       <ImageBackground
         style={styles.ellips}
-        source={require("../../assets/imegs/ellipsenoactiv.png")}
+        source={require("../assets/images/ellipsenoactiv.png")}
       />
       <ImageBackground
         style={styles.vector}
-        source={require("../../assets/imegs/vector.png")}
+        source={require("../assets/images/vector.png")}
       />
       <ImageBackground
         style={styles.buttonnoactyv}
-        source={require("../../assets/imegs/notactive.png")}
+        source={require("../assets/images/notactive.png")}
       />
       <Text style={styles.text}>Загрузите фото</Text>
     </View>

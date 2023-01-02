@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { LoginScreen } from "./Screens/LoginScreen/LoginScreen";
-import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
-import PostsScreen from "./Screens/mainScreen/PostsScreen";
-import ProfileScreen from "./Screens/mainScreen/ProfileScreen";
-import { RegistrationScreen } from "./Screens/RegistrationScreen/RegistrationScreen";
+import Login from "./screens/auth/Login";
+import CreatePostsScreen from "./screens/CreatePostsScreen";
+import PostsScreen from "./screens/PostsScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import Registration from "./screens/auth/Register";
 import { AntDesign } from "@expo/vector-icons";
 import { Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -21,14 +21,14 @@ export const AuthRoute = () => {
           headerShown: false,
         }}
         name="Login"
-        component={LoginScreen}
+        component={Login}
       />
       <MainStack.Screen
         options={{
           headerShown: false,
         }}
         name="Register"
-        component={RegistrationScreen}
+        component={Registration}
       />
     </MainStack.Navigator>
   );
