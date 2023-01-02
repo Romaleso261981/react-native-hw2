@@ -1,60 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
+import {} from "react-native";
+
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
+
+// import CreateScreen from './Screens/mainScreen/CreateScreen';
+// import ProfileScreen from './Screens/mainScreen/ProfileScreen';
+
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+import { LoginScreen } from "./Screens/LoginScreen/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Login from "./screens/auth/Login";
-import Register from "./screens/auth/Register";
-import Home from "./screens/Home";
-import { Dimensions } from "react-native";
-import * as Font from "expo-font";
-import { AppLoading } from "expo";
-import { useState } from "react";
-
-const AuthStack = createStackNavigator();
-
-const loadApplication = async () => {
-  if (fontsLoaded) {
-    await Font.loadAsync({
-      "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
-    });
-  }
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import PostsScreen from "./Screens/mainScreen/PostsScreen";
+import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
+import { AuthRoute, MainRoute } from "./router";
+const loadFonts = async () => {
+  await Font.loadAsync({
+    "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+  });
 };
+const MainStack = createStackNavigator();
 
-export default () => {
-  const [iasReady, setIasReady] = useState(false);
-  if (!iasReady) {
+export default function App() {
+  const [auth, setAuth] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  if (!isReady) {
     return (
       <AppLoading
-        startAsync={loadApplication}
-        onfinish={() => setIasReady(true)}
-        onError={console.warn}
+        startAsync={loadFonts}
+        onFinish={() => setIsReady(true)}
+        onError={(error) => console.log(error)}
       />
     );
   }
   return (
     <NavigationContainer>
-      <AuthStack.Navigator>
-        <AuthStack.Screen
+      <MainStack.Navigator>
+        <MainStack.Screen
           options={{
             headerShown: false,
           }}
-          name="Registration"
-          component={Register}
+          name="Auth"
+          component={AuthRoute}
         />
-        <AuthStack.Screen
+        <MainStack.Screen
           options={{
             headerShown: false,
+            headerRight: () => (
+              <Button
+                onPress={() => alert("This is a button!")}
+                title="Info"
+                color="#fff"
+              />
+            ),
           }}
-          name="Login"
-          component={Login}
+          name="Posts"
+          component={MainRoute}
         />
-        <AuthStack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="Home"
-          component={Home}
-        />
-      </AuthStack.Navigator>
+      </MainStack.Navigator>
     </NavigationContainer>
   );
-};
+}
