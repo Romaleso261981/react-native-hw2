@@ -131,11 +131,18 @@ const Registration = ({ navigation }) => {
               >
                 <Text style={styles.btnSubmitTitle}>Зарегистрироваться</Text>
               </TouchableOpacity>
-              <Button
-                style={styles.button}
-                title="Go to Home"
-                onPress={() => navigation.navigate("Home")}
-              />
+
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text onPress={() => navigation.navigate("Login")}>
+                  Go to Login
+                </Text>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </View>

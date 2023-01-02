@@ -28,7 +28,6 @@ const Login = ({ navigation }) => {
   const keyboardHideAndSubmit = () => {
     console.log(`managed to get the data ${state.email}`);
     setIsShowKeyboard(false);
-    setIsFocusedName(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
     Keyboard.dismiss();
@@ -36,7 +35,6 @@ const Login = ({ navigation }) => {
 
   const keyboardHideWithoutFeedback = () => {
     setIsShowKeyboard(false);
-    setIsFocusedName(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
     Keyboard.dismiss();
@@ -54,7 +52,7 @@ const Login = ({ navigation }) => {
             source={require("../../assets/images/bgava.jpg")}
             style={{
               ...styles.avatar,
-              top: isShowKeyboard ? 0 : 160,
+              top: isShowKeyboard ? 0 : 200,
               display: isShowKeyboard ? "none" : "flex",
             }}
           ></ImageBackground>
@@ -111,11 +109,17 @@ const Login = ({ navigation }) => {
               >
                 <Text style={styles.btnSubmitTitle}>Register</Text>
               </TouchableOpacity>
-              <Button
-                style={styles.button}
-                title="Go to Home"
-                onPress={() => navigation.navigate("Home")}
-              />
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text onPress={() => navigation.navigate("Register")}>
+                  Go to Register
+                </Text>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
   },
 
   formTitle: {
-    marginTop: 75,
+    marginTop: 200,
     color: "#212121",
     fontSize: 30,
     lineHeight: 35,
