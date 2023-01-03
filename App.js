@@ -5,7 +5,6 @@ import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AuthRoute, MainRoute } from "./router";
-
 const loadFonts = async () => {
   await Font.loadAsync({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
@@ -15,7 +14,7 @@ const loadFonts = async () => {
 const MainStack = createStackNavigator();
 
 export default function App() {
-  const [auth, setAuth] = useState(false);
+  // const [auth, setAuth] = useState(false);
   const [isReady, setIsReady] = useState(false);
   if (!isReady) {
     return (
@@ -47,7 +46,7 @@ export default function App() {
               />
             ),
           }}
-          name="Posts"
+          name="MainPosts"
           component={MainRoute}
         />
       </MainStack.Navigator>
