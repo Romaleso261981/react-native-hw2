@@ -34,8 +34,8 @@ const CreatePostsScreen = ({ navigation }) => {
   };
   useEffect(() => {
     (async () => {
-      let { status } = await Camera.requestCameraPermissionsAsync();
-      let { statusLocation } =
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      const { statusLocation } =
         await Location.requestForegroundPermissionsAsync();
 
       if (statusLocation !== "granted" || cameraLocation !== "granted") {
@@ -44,7 +44,7 @@ const CreatePostsScreen = ({ navigation }) => {
 
       setCameraUsePermission(status === "granted");
       setLoactionPermission(statusLocation === "granted");
-      let location = await Location.getCurrentPositionAsync();
+      const location = await Location.getCurrentPositionAsync();
       const coords = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -52,7 +52,7 @@ const CreatePostsScreen = ({ navigation }) => {
       console.log(location);
       setLocationName("nema");
       setLocation(location);
-      let backPerm = await Location.requestBackgroundPermissionsAsync();
+      const backPerm = await Location.requestBackgroundPermissionsAsync();
     })();
   }, []);
 
