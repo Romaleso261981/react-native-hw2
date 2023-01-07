@@ -1,10 +1,11 @@
-import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Image } from "@rneui/themed/dist/Image";
-import React from "react";
-import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
-import { CommentsScreen } from "./CommentsScreen";
-import MapScreen from "./MapScreen";
+import { EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Image } from '@rneui/themed/dist/Image';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { CommentsScreen } from './CommentsScreen';
+import MapScreen from './MapScreen';
 
 const PostsStack = createStackNavigator();
 const Main = ({ navigation, route }) => {
@@ -18,13 +19,13 @@ const Main = ({ navigation, route }) => {
       )}
       {console.log(route.params)}
       <Text style={{ right: 136, top: 10 }}>
-        {route.params ? route.params.name : "name"}
+        {route.params ? route.params.name : 'name'}
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Map", { location: route.params.location });
+          navigation.navigate('Map', { location: route.params.location });
         }}
-        style={{ top: 10, alignItems: "flex-start" }}
+        style={{ top: 10, alignItems: 'flex-start' }}
       >
         <SimpleLineIcons
           name="location-pin"
@@ -33,12 +34,12 @@ const Main = ({ navigation, route }) => {
           color="#BDBDBD"
         />
         <Text style={{ right: -120 }}>
-          {route.params?.location ? route.params.locationName : "location"}
+          {route.params?.location ? route.params.locationName : 'location'}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Comments");
+          navigation.navigate('Comments');
         }}
       >
         <EvilIcons
@@ -49,7 +50,6 @@ const Main = ({ navigation, route }) => {
         />
         <Text style={{ left: -125, top: -17 }}>0</Text>
       </TouchableOpacity>
-      {/* <Image source={route.params.photo} /> */}
       {console.log(route)}
     </View>
   );
@@ -85,8 +85,8 @@ const PostsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     top: -100,
   },
 });
