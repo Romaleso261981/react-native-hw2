@@ -71,10 +71,10 @@ const CreatePostsScreen = ({ navigation }) => {
         }}
       >
         {photo && (
-          <View style={styles.takePhotoContainer}>
+          <View style={{ position: "absolute" }}>
             <Image
               source={{ uri: photo }}
-              style={{ height: 130, width: 320 }}
+              style={{ height: 240, width: 343 }}
             />
           </View>
         )}
@@ -164,13 +164,6 @@ const styles = StyleSheet.create({
     bottom: 120,
     width: 343,
     height: 51,
-  },
-  takePhotoContainer: {
-    position: "absolute",
-    top: 50,
-    left: 10,
-    borderColor: "#fff",
-    borderWidth: 1,
   },
 });
 export default CreatePostsScreen;
