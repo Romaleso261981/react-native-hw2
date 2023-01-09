@@ -12,6 +12,8 @@ import {
   Button,
   TouchableWithoutFeedback,
 } from "react-native";
+import { login } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   email: "",
@@ -20,24 +22,26 @@ const initialState = {
 
 const Login = ({ navigation }) => {
   const [state, setState] = useState(initialState);
-
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [isFocusedMail, setIsFocusedMail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
-  const keyboardHideAndSubmit = () => {
-    console.log(`managed to get the data ${state.email}`);
-    setIsShowKeyboard(false);
-    setIsFocusedMail(false);
-    setIsFocusedPassword(false);
-    Keyboard.dismiss();
-  };
+  const dispatch = useDispatch();
 
   const keyboardHideWithoutFeedback = () => {
     setIsShowKeyboard(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
     Keyboard.dismiss();
+  };
+
+  const onLogin = () => {
+    dispatch(login({ email, password }));
+    setEmail("");
+    setPassword("");
+    navigation.navigate("MainPosts");
   };
   return (
     <ImageBackground
@@ -73,8 +77,10 @@ const Login = ({ navigation }) => {
                   setIsFocusedMail(true);
                   setIsShowKeyboard(true);
                 }}
-                // onBlur={() => keyboardHide()}
                 value={state.email}
+                onBlur={() => {
+                  setIsFocusedMail(false);
+                }}
                 onChangeText={(value) =>
                   setState((prevState) => ({ ...prevState, email: value }))
                 }
@@ -95,7 +101,9 @@ const Login = ({ navigation }) => {
                     setIsFocusedPassword(true);
                     setIsShowKeyboard(true);
                   }}
-                  // onBlur={() => keyboardHide()}
+                  onBlur={() => {
+                    setIsFocusedPassword(false);
+                  }}
                   onChangeText={(value) =>
                     setState((prevState) => ({ ...prevState, password: value }))
                   }
@@ -105,9 +113,9 @@ const Login = ({ navigation }) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnSubmit}
-                onPress={keyboardHideAndSubmit}
+                onPress={onLogin}
               >
-                <Text style={styles.btnSubmitTitle}>Register</Text>
+                <Text style={styles.btnSubmitTitle}>Login</Text>
               </TouchableOpacity>
               <View
                 style={{
