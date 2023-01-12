@@ -4,9 +4,14 @@ import { Image } from "@rneui/themed/dist/Image";
 import { Input } from "@rneui/themed/dist/Input";
 import { Camera } from "expo-camera";
 import React, { useEffect, useState } from "react";
-import { ImageBackground, Text, View, StyleSheet } from "react-native";
+import { ImageBackground, Pressable } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Location from "expo-location";
+import { collection, addDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
+import { useSelector } from "react-redux";
+import { getUser } from "../redux/auth/authSelectors";
 
 const CreatePostsScreen = ({ navigation }) => {
   const [cameraPermission, setCameraUsePermission] = useState(null);
@@ -17,6 +22,8 @@ const CreatePostsScreen = ({ navigation }) => {
   const [location, setLocation] = useState({});
   const [locationName, setLocationName] = useState("");
 
+  const user = useSelector(getUser);
+
   const takePhoto = async () => {
     try {
       const photo = await camera.takePictureAsync();
@@ -25,34 +32,37 @@ const CreatePostsScreen = ({ navigation }) => {
       console.log(error, "ERROR <<<<<<<<<<<<<");
     }
   };
-  const sendPhoto = () => {
-    console.log("navigation", location);
+  const sendPhoto = async () => {
+    await addDoc(collection(db, "posts"), {
+      photo,
+      name,
+      location,
+      locationName,
+      userName: user.name,
+    });
     navigation.navigate("Posts", {
-      screen: "Main",
-      params: { photo, name, locationName, location },
+      screen: "MainPosts",
     });
   };
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      const { statusLocation } =
+      let { status } = await Camera.requestCameraPermissionsAsync();
+      let { statusLocation } =
         await Location.requestForegroundPermissionsAsync();
 
-      if (statusLocation !== "granted" || cameraLocation !== "granted") {
+      if (statusLocation !== "granted") {
         console.log("Permission to access location was denied", statusLocation);
       }
 
       setCameraUsePermission(status === "granted");
       setLoactionPermission(statusLocation === "granted");
-      const location = await Location.getCurrentPositionAsync();
+      let location = await Location.getCurrentPositionAsync();
       const coords = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       };
-      console.log(location);
-      setLocationName("nema");
       setLocation(location);
-      const backPerm = await Location.requestBackgroundPermissionsAsync();
+      let backPerm = await Location.requestBackgroundPermissionsAsync();
     })();
   }, []);
 
