@@ -1,60 +1,44 @@
-import React, { useState } from "react";
-import {} from "react-native";
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { AuthRoute, MainRoute } from "./router";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import React, { useState } from 'react';
+import {} from 'react-native';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { store } from './redux/store';
+import { useRoute } from './router';
+import { auth } from './firebase/config';
+import { Provider, useDispatch } from 'react-redux';
+import { updateUserProfile } from './redux/auth/authSlice';
 
 const loadFonts = async () => {
   await Font.loadAsync({
-    "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
+    'Roboto-Regular': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
+    'Roboto-Bold': require('./assets/fonts/Roboto/Roboto-Bold.ttf'),
   });
 };
-const MainStack = createStackNavigator();
 
 export default function App() {
-  // const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
+
+  auth.onAuthStateChanged(user => {
+    setUser(user);
+  });
+
+  const route = useRoute(user);
+
   if (!isReady) {
     return (
       <AppLoading
         startAsync={loadFonts}
         onFinish={() => setIsReady(true)}
-        onError={(error) => console.log(error)}
+        onError={error => console.log(error)}
       />
     );
   }
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <MainStack.Navigator>
-          <MainStack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name="Auth"
-            component={AuthRoute}
-          />
-          <MainStack.Screen
-            options={{
-              headerShown: false,
-              headerRight: () => (
-                <Button
-                  onPress={() => alert("This is a button!")}
-                  title="Info"
-                  color="#fff"
-                />
-              ),
-            }}
-            name="MainPosts"
-            component={MainRoute}
-          />
-        </MainStack.Navigator>
-      </NavigationContainer>
+      <NavigationContainer>{route}</NavigationContainer>
     </Provider>
   );
 }

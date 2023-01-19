@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import { Text, TextInput, TouchableHighlight, View } from "react-native";
-import { styles } from "./LoginScreen.styled";
-import { Button } from "@rneui/themed/dist/Button";
-import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Keyboard } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { KeyboardAvoidingView } from "react-native";
-import { ImageBackground } from "react-native";
-import { login } from "../../../redux/auth/authOperations";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { Alert, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { styles } from './LoginScreen.styled';
+import { Button } from '@rneui/themed/dist/Button';
+import { useTogglePasswordVisibility } from '../hooks/useTogglePasswordVisibility';
+import { Pressable } from 'react-native-web-hover';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Keyboard } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { KeyboardAvoidingView } from 'react-native';
+import { ImageBackground } from 'react-native';
+import { login } from '../../redux/auth/authOperations';
+import { useDispatch } from 'react-redux';
 
 export const LoginScreen = ({ navigation }) => {
   const [isKeyboardActive, setKeyboardActive] = useState(false);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const emailHandler = (text) => setEmail(text);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const emailHandler = text => setEmail(text);
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -24,8 +25,8 @@ export const LoginScreen = ({ navigation }) => {
 
   const onLogin = () => {
     dispatch(login({ email, password }));
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
     Keyboard.dismiss();
     // setKeyboardActive(false);
   };
@@ -37,7 +38,7 @@ export const LoginScreen = ({ navigation }) => {
         // source={require('../../assets/imegs/flag.jpg')}
       >
         <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
           <TouchableWithoutFeedback
             onPress={() => {
@@ -55,7 +56,7 @@ export const LoginScreen = ({ navigation }) => {
                 <Text style={styles.p}>Войти</Text>
                 <TextInput
                   value={email}
-                  onChangeText={(value) => setEmail(value)}
+                  onChangeText={value => setEmail(value)}
                   placeholder="Email"
                   onFocus={() => {
                     setFocusEmail(true);
@@ -68,10 +69,10 @@ export const LoginScreen = ({ navigation }) => {
                 />
               </View>
 
-              <View style={{ position: "relative", marginTop: 20 }}>
+              <View style={{ position: 'relative', marginTop: 20 }}>
                 <TextInput
                   value={password}
-                  onChangeText={(value) => setPassword(value)}
+                  onChangeText={value => setPassword(value)}
                   placeholder="Password"
                   secureTextEntry={passwordVisibility}
                   onFocus={() => {
@@ -110,7 +111,7 @@ export const LoginScreen = ({ navigation }) => {
               onPress={handlePasswordVisibility}
             >
               <MaterialCommunityIcons
-                style={{ position: "absolute" }}
+                style={{ position: 'absolute' }}
                 name={rightIcon}
                 size={22}
                 color="#232323"
@@ -119,12 +120,12 @@ export const LoginScreen = ({ navigation }) => {
           </View>
         </KeyboardAvoidingView>
 
-        <View style={{ bottom: "10%" }}>
+        <View style={{ bottom: '10%' }}>
           <Button
-            title={"Login"}
+            title={'Login'}
             buttonStyle={{
-              backgroundColor: "#FF6C00",
-              width: "100%",
+              backgroundColor: '#FF6C00',
+              width: '100%',
               height: 44,
               padding: 10,
               borderRadius: 20,
@@ -133,7 +134,7 @@ export const LoginScreen = ({ navigation }) => {
             onPress={onLogin}
           />
 
-          <TouchableHighlight onPress={() => navigation.navigate("Register")}>
+          <TouchableHighlight onPress={() => navigation.navigate('Register')}>
             <Text style={styles.title}>Нет аккаунта? Зарегистрироваться</Text>
           </TouchableHighlight>
         </View>

@@ -1,72 +1,60 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
-import RegistrationScreen from "./screens/auth/RegistrationScreen/RegistrationScreen";
-import CreatePostsScreen from "./screens/CreatePostsScreen";
-import PostsScreen from "./screens/PostsScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import LoginScreen from "./screens/auth/LoginScreens/LoginScreen";
-import { AntDesign } from "@expo/vector-icons";
-import { Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import React, { useEffect } from 'react';
+import { LoginScreen } from './Screens/LoginScreen/LoginScreen';
+import CreatePostsScreen from './Screens/mainScreen/CreatePostsScreen';
+import PostsScreen from './Screens/mainScreen/PostsScreen';
+import ProfileScreen from './Screens/mainScreen/ProfileScreen';
+import { RegistrationScreen } from './Screens/RegistrationScreen/RegistrationScreen';
+import { AntDesign } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { logOut } from './redux/auth/authOperations';
+import { updateUserProfile } from './redux/auth/authSlice';
+import { auth } from './firebase/config';
 
 const MainStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-// export const AuthRoute = () => {
-//   return (
-//     <MainStack.Navigator>
-//       <MainStack.Screen
-//         options={{
-//           headerShown: false,
-//         }}
-//         name="Login"
-//         component={LoginScreen}
-//       />
-//       <MainStack.Screen
-//         options={{
-//           headerShown: false,
-//         }}
-//         name="Register"
-//         component={RegistrationScreen}
-//       />
-//     </MainStack.Navigator>
-//   );
-// };
+const AuthRoute = () => {
+  return (
+    <MainStack.Navigator>
+      <MainStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Login"
+        component={LoginScreen}
+      />
+      <MainStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Register"
+        component={RegistrationScreen}
+      />
+    </MainStack.Navigator>
+  );
+};
 
-export const MainRoute = () => {
+const MainRoute = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   return (
     <MainTab.Navigator>
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
         options={{
+          headerShown: false,
           tabBarIcon: () => <AntDesign name="appstore-o" size={24} />,
-          tabBarLabel: "",
-          headerRight: () => (
-            <Pressable
-              onPress={() => {
-                navigation.navigate("Register");
-              }}
-            >
-              <AntDesign
-                name="logout"
-                size={16}
-                style={{ right: 20, opacity: 0.3 }}
-              />
-            </Pressable>
-          ),
-        }}
-      />
-      <MainTab.Screen
-        name="Create a post"
-        component={CreatePostsScreen}
-        options={{
+          tabBarLabel: '',
           headerLeft: () => (
             <Pressable
               onPress={() => {
-                navigation.navigate("Posts", { screen: "Posts" });
+                navigation.navigate('Posts', { screen: 'Posts' });
               }}
             >
               <AntDesign
@@ -77,32 +65,41 @@ export const MainRoute = () => {
               />
             </Pressable>
           ),
+        }}
+      />
+      <MainTab.Screen
+        name="Create a post"
+        component={CreatePostsScreen}
+        options={{
           tabBarIcon: () => (
             <AntDesign
               name="pluscircle"
               size={32}
-              Style={{
-                capInsets: {
-                  bottom: 20,
-                  left: null,
-                  right: undefined,
-                  top: 50,
-                },
+              style={{
+                top: 5,
               }}
-              color={"orange"}
+              color={'orange'}
             />
           ),
-          tabBarLabel: "",
+          tabBarLabel: '',
         }}
       />
       <MainTab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
+          headerShown: false,
           tabBarIcon: () => <AntDesign name="user" size={24} />,
-          tabBarLabel: "",
+          tabBarLabel: '',
         }}
       />
     </MainTab.Navigator>
   );
+};
+
+export const useRoute = isAuth => {
+  if (!isAuth) {
+    return <AuthRoute />;
+  }
+  return <MainRoute />;
 };

@@ -1,22 +1,17 @@
-import { AntDesign, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
-import { Image } from "@rneui/themed/dist/Image";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  Pressable,
-  FlatList,
-  ImageBackground,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { db } from "../firebase/config";
-import { logOut } from "../redux/auth/authOperations";
-import { getUser } from "../redux/auth/authSelectors";
-import { updateUserProfile } from "../redux/auth/authSlice";
+import { AntDesign, EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { Image } from '@rneui/themed/dist/Image';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { FlatList, ImageBackground } from 'react-native';
+import { Pressable } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { db } from '../../firebase/config';
+import { logOut } from '../../redux/auth/authOperations';
+import { getUser } from '../../redux/auth/authSelectors';
+import { updateUserProfile } from '../../redux/auth/authSlice';
 
 const PofileScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
@@ -26,10 +21,10 @@ const PofileScreen = ({ navigation }) => {
   useEffect(() => {
     user.name
       ? onSnapshot(
-          query(collection(db, "posts"), where("userName", "==", user.name)),
-          (snapshot) => {
+          query(collection(db, 'posts'), where('userName', '==', user.name)),
+          snapshot => {
             const posts = [];
-            snapshot.forEach((doc) => {
+            snapshot.forEach(doc => {
               posts.push(doc.data());
             });
             setPosts(posts);
@@ -41,15 +36,15 @@ const PofileScreen = ({ navigation }) => {
   return (
     <ImageBackground
       style={styles.image}
-      source={require("../assets/images/flag.jpg")}
+      source={require('../../assets/imegs/flag.jpg')}
     >
       <View style={styles.container}>
         <View
           style={{
-            backgroundColor: "white",
+            backgroundColor: 'white',
             top: 147,
-            alignItems: "center",
-            height: "80%",
+            alignItems: 'center',
+            height: '80%',
             borderTopRightRadius: 25,
             borderTopLeftRadius: 25,
           }}
@@ -59,7 +54,7 @@ const PofileScreen = ({ navigation }) => {
             onPress={() => {
               dispatch(logOut());
             }}
-            style={{ marginTop: 22, left: "42%" }}
+            style={{ marginTop: 22, left: '42%' }}
           >
             <AntDesign name="logout" size={24} style={{ opacity: 0.3 }} />
           </Pressable>
@@ -78,9 +73,9 @@ const PofileScreen = ({ navigation }) => {
                 <View style={styles.containerSoce}>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("Map", { location: item.location });
+                      navigation.navigate('Map', { location: item.location });
                     }}
-                    style={{ flexDirection: "row" }}
+                    style={{ flexDirection: 'row' }}
                   >
                     <SimpleLineIcons
                       name="location-pin"
@@ -91,8 +86,17 @@ const PofileScreen = ({ navigation }) => {
                     <Text>{item.locationName}</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={{ flexDirection: "row" }}>
+                  <TouchableOpacity
+                    // onPress={() => {
+                    //   navigation.navigate('Comments', {
+                    //     photo: item.photo,
+                    //     postId: item.id,
+                    //   });
+                    // }}
+                    style={{ flexDirection: 'row' }}
+                  >
                     <EvilIcons name="comment" size={25} color="#BDBDBD" />
+                    {/* <Text style={{ left: 9 }}>0</Text> */}
                   </TouchableOpacity>
                 </View>
               </SafeAreaView>
@@ -111,16 +115,16 @@ const styles = StyleSheet.create({
   },
   containerSoce: {
     top: 18,
-    display: "flex",
-    flexDirection: "row-reverse",
-    alignItems: "baseline",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
   },
   text: { top: 50, fontSize: 20 },
   image: {
     flex: 1,
-    resizeMode: "cover",
-    justifyContent: "flex-end",
+    resizeMode: 'cover',
+    justifyContent: 'flex-end',
   },
 });
 export default PofileScreen;

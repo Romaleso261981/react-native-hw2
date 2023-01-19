@@ -1,24 +1,20 @@
-import { AntDesign, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Button } from "@rneui/themed/dist/Button";
-import { Image } from "@rneui/themed/dist/Image";
-import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  SafeAreaView,
-  TouchableOpacity,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { auth, db } from "../firebase/config";
-import { logOut } from "../redux/auth/authOperations";
-import { getUser } from "../redux/auth/authSelectors";
-import { updateUserProfile } from "../redux/auth/authSlice";
-import { CommentsScreen } from "./CommentsScreen";
-import MapScreen from "./MapScreen";
+import { AntDesign, EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Button } from '@rneui/themed/dist/Button';
+import { Image } from '@rneui/themed/dist/Image';
+import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { FlatList, SafeAreaView } from 'react-native';
+import { Pressable } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { auth, db } from '../../firebase/config';
+import { logOut } from '../../redux/auth/authOperations';
+import { getUser } from '../../redux/auth/authSelectors';
+import { updateUserProfile } from '../../redux/auth/authSlice';
+import { CommentsScreen } from './CommentsScreen';
+import MapScreen from './MapScreen';
 
 const PostsStack = createStackNavigator();
 const Main = ({ navigation }) => {
@@ -29,10 +25,10 @@ const Main = ({ navigation }) => {
   useEffect(() => {
     user.name
       ? onSnapshot(
-          query(collection(db, "posts"), where("userName", "==", user.name)),
-          (snapshot) => {
+          query(collection(db, 'posts'), where('userName', '==', user.name)),
+          snapshot => {
             const posts = [];
-            snapshot.forEach((doc) => {
+            snapshot.forEach(doc => {
               posts.push({ ...doc.data(), id: doc.id });
             });
             setPosts(posts);
@@ -62,9 +58,9 @@ const Main = ({ navigation }) => {
             <View style={styles.containerSoce}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Map", { location: item.location });
+                  navigation.navigate('Map', { location: item.location });
                 }}
-                style={{ flexDirection: "row" }}
+                style={{ flexDirection: 'row' }}
               >
                 <SimpleLineIcons
                   name="location-pin"
@@ -77,12 +73,12 @@ const Main = ({ navigation }) => {
 
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Comments", {
+                  navigation.navigate('Comments', {
                     photo: item.photo,
                     postId: item.id,
                   });
                 }}
-                style={{ flexDirection: "row" }}
+                style={{ flexDirection: 'row' }}
               >
                 <EvilIcons name="comment" size={25} color="#BDBDBD" />
               </TouchableOpacity>
@@ -102,7 +98,7 @@ const PostsScreen = () => {
           headerRight: () => (
             <View style={styles.PostsScreenButton}>
               <Button
-                buttonStyle={{ backgroundColor: "white", right: 5 }}
+                buttonStyle={{ backgroundColor: 'white', right: 5 }}
                 onPress={() => {
                   dispatch(logOut());
                 }}
@@ -130,15 +126,15 @@ const PostsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   containerSoce: {
     top: 18,
-    display: "flex",
-    flexDirection: "row-reverse",
-    alignItems: "baseline",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
   },
 });
 export default PostsScreen;

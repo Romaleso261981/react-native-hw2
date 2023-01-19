@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -11,14 +11,14 @@ import {
   SafeAreaView,
   FlatList,
   Image,
-} from "react-native";
-import { db } from "../firebase/config";
-import { getUser } from "../redux/auth/authSelectors";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
+} from 'react-native';
+import { db } from '../../firebase/config';
+import { getUser } from '../../redux/auth/authSelectors';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { addDoc, collection, doc, onSnapshot } from 'firebase/firestore';
 
 export const CommentsScreen = ({ route }) => {
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
   const { name } = useSelector(getUser);
 
@@ -28,9 +28,9 @@ export const CommentsScreen = ({ route }) => {
 
   const getAllComments = () => {
     onSnapshot(
-      collection(doc(collection(db, "posts"), route.params.postId), "comments"),
-      (data) => {
-        setComments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      collection(doc(collection(db, 'posts'), route.params.postId), 'comments'),
+      data => {
+        setComments(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
       }
     );
   };
@@ -41,13 +41,13 @@ export const CommentsScreen = ({ route }) => {
 
   const sendComment = async () => {
     await addDoc(
-      collection(doc(collection(db, "posts"), route.params.postId), "comments"),
+      collection(doc(collection(db, 'posts'), route.params.postId), 'comments'),
       {
         comment,
         name,
       }
     );
-    setComment("");
+    setComment('');
     keyboardHide();
   };
   return (
@@ -65,20 +65,20 @@ export const CommentsScreen = ({ route }) => {
         />
         <FlatList
           data={comments}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <View
               style={
                 item.name === name
-                  ? { alignItems: "flex-start" }
-                  : { alignItems: "flex-end" }
+                  ? { alignItems: 'flex-start' }
+                  : { alignItems: 'flex-end' }
               }
             >
               <View style={styles.commentContainer}>
-                <Text style={{ color: "#8b0000", fontStyle: "italic" }}>
+                <Text style={{ color: '#8b0000', fontStyle: 'italic' }}>
                   {item.name}
                 </Text>
-                <Text style={{ color: "#00008b", fontWeight: "bold" }}>
+                <Text style={{ color: '#00008b', fontWeight: 'bold' }}>
                   {item.comment}
                 </Text>
               </View>
@@ -91,7 +91,7 @@ export const CommentsScreen = ({ route }) => {
             value={comment}
             placeholder="Comment..."
             placeholderTextColor="#BDBDBD"
-            onChangeText={(value) => setComment(value)}
+            onChangeText={value => setComment(value)}
             style={styles.input}
           />
           <TouchableOpacity style={styles.commentButton} onPress={sendComment}>
@@ -111,7 +111,7 @@ export const CommentsScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     marginHorizontal: 16,
   },
   input: {
@@ -120,33 +120,33 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 0,
     borderWidth: 1,
-    backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
+    backgroundColor: '#F6F6F6',
+    borderColor: '#E8E8E8',
     borderRadius: 100,
     marginBottom: 16,
     zIndex: -1,
   },
   commentBlock: {
-    position: "relative",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    position: 'relative',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: 16,
     paddingRight: 8,
     marginBottom: 16,
     height: 50,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     border: 1,
-    borderColor: "#E8E8E8",
+    borderColor: '#E8E8E8',
     borderRadius: 100,
   },
 
   commentButton: {
-    position: "absolute",
+    position: 'absolute',
     right: 10,
     top: 0,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 34,
     height: 34,
     borderRadius: 50,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     width: 299,
     height: 103,
     padding: 16,
-    backgroundColor: "rgba(0, 0, 0, 0.05)",
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
     borderRadius: 6,
     borderTopLeftRadius: 0,
     marginBottom: 24,

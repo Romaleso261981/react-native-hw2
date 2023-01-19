@@ -1,27 +1,28 @@
-import { Button } from "@rneui/themed/dist/Button";
-import React, { useState } from "react";
+import { Button } from '@rneui/themed/dist/Button';
+import React, { useState } from 'react';
 import {
   Platform,
   Text,
   TextInput,
   TouchableHighlight,
   View,
-} from "react-native";
-import { styles } from "./RegistrationScreen.styled";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
-import { Keyboard } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { KeyboardAvoidingView } from "react-native";
-import { ImageBackground } from "react-native";
-import { useDispatch } from "react-redux";
-import { register } from "../../../redux/auth/authOperations";
+} from 'react-native';
+import { styles } from './RegistrationScreen.styled';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTogglePasswordVisibility } from '../hooks/useTogglePasswordVisibility';
+import { Pressable } from 'react-native-web-hover';
+import { Keyboard } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { KeyboardAvoidingView } from 'react-native';
+import { ImageBackground } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/authOperations';
 
 export const RegistrationScreen = ({ navigation }) => {
   const [isKeyboardActive, setKeyboardActive] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [focusName, setFocusName] = useState(false);
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
@@ -31,17 +32,20 @@ export const RegistrationScreen = ({ navigation }) => {
 
   const onRegister = () => {
     dispatch(register({ name, email, password }));
-    setEmail("");
-    setPassword("");
-    setName("");
+    setEmail('');
+    setPassword('');
+    setName('');
     Keyboard.dismiss();
   };
 
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.image}>
+      <ImageBackground
+        style={styles.image}
+        // source={require('../../assets/imegs/flag.jpg')}
+      >
         <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
           <TouchableWithoutFeedback
             onPress={() => {
@@ -59,7 +63,7 @@ export const RegistrationScreen = ({ navigation }) => {
                 <Text style={styles.p}>Регистрация</Text>
                 <TextInput
                   value={name}
-                  onChangeText={(value) => setName(value)}
+                  onChangeText={value => setName(value)}
                   placeholder="Login"
                   onFocus={() => {
                     setFocusName(true);
@@ -74,7 +78,7 @@ export const RegistrationScreen = ({ navigation }) => {
               <View style={{ marginTop: 20 }}>
                 <TextInput
                   value={email}
-                  onChangeText={(value) => setEmail(value)}
+                  onChangeText={value => setEmail(value)}
                   placeholder="Email"
                   onFocus={() => {
                     setFocusEmail(true);
@@ -86,10 +90,10 @@ export const RegistrationScreen = ({ navigation }) => {
                   }}
                 />
               </View>
-              <View style={{ position: "relative", marginTop: 20 }}>
+              <View style={{ position: 'relative', marginTop: 20 }}>
                 <TextInput
                   value={password}
-                  onChangeText={(value) => setPassword(value)}
+                  onChangeText={value => setPassword(value)}
                   placeholder="Password"
                   secureTextEntry={passwordVisibility}
                   onFocus={() => {
@@ -111,7 +115,7 @@ export const RegistrationScreen = ({ navigation }) => {
               onPress={handlePasswordVisibility}
             >
               <MaterialCommunityIcons
-                style={{ position: "absolute" }}
+                style={{ position: 'absolute' }}
                 name={rightIcon}
                 size={22}
                 color="#232323"
@@ -119,12 +123,12 @@ export const RegistrationScreen = ({ navigation }) => {
             </Button>
           </View>
         </KeyboardAvoidingView>
-        <View style={{ bottom: "10%" }}>
+        <View style={{ bottom: '10%' }}>
           <Button
-            title={"Register"}
+            title={'Register'}
             buttonStyle={{
-              backgroundColor: "#FF6C00",
-              width: "100%",
+              backgroundColor: '#FF6C00',
+              width: '100%',
               height: 44,
               padding: 10,
               borderRadius: 20,
@@ -132,7 +136,7 @@ export const RegistrationScreen = ({ navigation }) => {
             }}
             onPress={onRegister}
           />
-          <TouchableHighlight onPress={() => navigation.navigate("Login")}>
+          <TouchableHighlight onPress={() => navigation.navigate('Login')}>
             <Text style={styles.title}>Уже есть аккаунт? Войти</Text>
           </TouchableHighlight>
         </View>

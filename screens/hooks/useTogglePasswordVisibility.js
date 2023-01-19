@@ -20,5 +20,3 @@ export const useTogglePasswordVisibility = () => {
     handlePasswordVisibility,
   };
 };
-
-export default useTogglePasswordVisibility;

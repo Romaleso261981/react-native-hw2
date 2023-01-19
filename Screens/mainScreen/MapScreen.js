@@ -1,6 +1,6 @@
-import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import React from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
 const MapScreen = ({ route }) => {
   const { coords } = route.params.location;
