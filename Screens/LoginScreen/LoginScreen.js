@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { styles } from './LoginScreen.styled';
 import { Button } from '@rneui/themed/dist/Button';
 import { useTogglePasswordVisibility } from '../hooks/useTogglePasswordVisibility';
-import { Pressable } from 'react-native-web-hover';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Keyboard } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -16,7 +15,6 @@ export const LoginScreen = ({ navigation }) => {
   const [isKeyboardActive, setKeyboardActive] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const emailHandler = text => setEmail(text);
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -28,14 +26,12 @@ export const LoginScreen = ({ navigation }) => {
     setEmail('');
     setPassword('');
     Keyboard.dismiss();
-    // setKeyboardActive(false);
   };
 
   return (
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        // source={require('../../assets/imegs/flag.jpg')}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -84,24 +80,6 @@ export const LoginScreen = ({ navigation }) => {
                     setFocusPassword(false);
                   }}
                 />
-                {/* <Pressable onPress={handlePasswordVisibility}> */}
-                {/* <View style={styles.commentButton}>
-                  <Button buttonStyle={styles.button}>
-                    <MaterialCommunityIcons
-                      style={{ position: 'absolute', left: '100%' }}
-                      name={rightIcon}
-                      size={22}
-                      color="#232323"
-                    />
-                  </Button>
-                </View> */}
-                {/* <MaterialCommunityIcons
-                    style={{ position: 'absolute', left: '100%' }}
-                    name={rightIcon}
-                    size={22}
-                    color="#232323"
-                  /> */}
-                {/* </Pressable> */}
               </View>
             </View>
           </TouchableWithoutFeedback>

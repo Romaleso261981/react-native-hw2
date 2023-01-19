@@ -5,7 +5,7 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import { auth, user } from '../../firebase/config';
+import { auth} from '../../firebase/config';
 
 export const register = createAsyncThunk(
   'auth/register',

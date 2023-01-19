@@ -10,7 +10,6 @@ import {
 import { styles } from './RegistrationScreen.styled';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from '../hooks/useTogglePasswordVisibility';
-import { Pressable } from 'react-native-web-hover';
 import { Keyboard } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
@@ -40,10 +39,7 @@ export const RegistrationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        // source={require('../../assets/imegs/flag.jpg')}
-      >
+      <ImageBackground style={styles.image}>
         <KeyboardAvoidingView
           behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >

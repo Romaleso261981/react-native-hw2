@@ -3,8 +3,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     backgroundColor: '#ecf0f1',
   },
   input: {
@@ -42,10 +40,6 @@ export const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  header: {
-    // alignItems: 'center',
-    // marginBottom: 20,
   },
   button: {
     backgroundColor: '#ecf0f1',

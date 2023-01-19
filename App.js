@@ -3,12 +3,10 @@ import {} from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { store } from './redux/store';
 import { useRoute } from './router';
 import { auth } from './firebase/config';
-import { Provider, useDispatch } from 'react-redux';
-import { updateUserProfile } from './redux/auth/authSlice';
+import { Provider } from 'react-redux';
 
 const loadFonts = async () => {
   await Font.loadAsync({
