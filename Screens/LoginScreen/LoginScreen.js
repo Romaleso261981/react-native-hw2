@@ -30,9 +30,7 @@ export const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-      >
+      <ImageBackground style={styles.image}>
         <KeyboardAvoidingView
           behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
@@ -106,7 +104,7 @@ export const LoginScreen = ({ navigation }) => {
               width: '100%',
               height: 44,
               padding: 10,
-              borderRadius: 20,
+              borderRadius: 5,
               marginTop: 27,
             }}
             onPress={onLogin}
