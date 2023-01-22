@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyA-8N_QM7fkNhXGtBU3pSFAaUcnM6aPK-4',
+  apiKey: 'AIzaSyA8RoFF23GxpjS3ndy8zXUE939kR2WWqCA',
   authDomain: 'rn-social-c6424.firebaseapp.com',
   projectId: 'rn-social-c6424',
   storageBucket: 'rn-social-c6424.appspot.com',
